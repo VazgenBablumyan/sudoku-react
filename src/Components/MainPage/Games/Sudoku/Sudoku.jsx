@@ -4,22 +4,18 @@ import ChooseMode from './ChooseMode/ChooseMode'
 import StartNewGame from './StartNewGame/StartNewGame'
 import { reducer } from './Reducer/Reducer'
 import RenderSudoku from './StartNewGame/RenderSudoku'
-import { MakeSudoku } from './Services/MakeSudoku'
 
 const setStorage = (sudoku) => localStorage.setItem("Sudoku",JSON.stringify(sudoku))
 const getStorage = () => JSON.parse(localStorage.getItem("Sudoku"))
 
-
-
 export default function Sudoku() {
   const [sudoku, dispatch] = useReducer(reducer, getStorage() ?? {isLoaded:true,emptyCounts:0})
-
-  // const board = MakeSudoku(sudoku.emptyCounts)
 
   useEffect(() => {
     setStorage(sudoku)
   },[sudoku])
-  
+ 
+    
   function isLoaded(){
     dispatch({type:"isLoaded"})
   }
@@ -38,7 +34,8 @@ export default function Sudoku() {
 
   return (
     <div className={styles.sudoku}>
-        <h1 onClick={isLoaded} className={styles.closeSudoku}>X</h1>
+      
+        <button onClick={isLoaded} className={styles.closeSudoku}>X</button>
         {
         sudoku.isLoaded && !sudoku.boardOnScreen && <StartNewGame  boardOnScreen={boardOnScreen} sudoku={sudoku} inChoosingMode={inChoosingMode}/> 
         }

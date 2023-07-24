@@ -5,9 +5,9 @@ import styles from './ChooseMode.module.css'
 export default function ChooseMode({boardOnScreen}) {
   return (
     <div className={styles.chooseMode}>
-        <Mode className={styles.easy}  boardOnScreen={() => boardOnScreen(13)} text="easy"/>
-        <Mode className={styles.medium} boardOnScreen={() => boardOnScreen(35)}  text="medium"/>
-        <Mode className={styles.hard} boardOnScreen={() => boardOnScreen(55)}  text="hard"/>
+        <Mode clas="easy" boardOnScreen={() => boardOnScreen(15)} text="EASY"/>
+        <Mode clas="medium" boardOnScreen={() => boardOnScreen(35)}  text="MEDIUM"/>
+        <Mode clas="hard" boardOnScreen={() => boardOnScreen(55)}  text="HARD"/>
     </div>
   )
 }

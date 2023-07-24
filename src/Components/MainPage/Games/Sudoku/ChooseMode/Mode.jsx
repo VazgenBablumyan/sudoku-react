@@ -1,12 +1,14 @@
-import React from 'react'
+import React, { useRef } from 'react'
+import styles from "./Mode.module.css"
 
 
 
-export default function Mode({boardOnScreen,text}) {
+export default function Mode({boardOnScreen,text,clas}) {
+let style = styles[clas] 
 
-  return (
+return (
     <div>
-          <button onClick={boardOnScreen}> {text} </button>
+          <button onClick={boardOnScreen} className={style+" "+styles.button}> {text} </button>
     </div>
   )
 }

@@ -1,8 +1,6 @@
 export function reducer(sudoku,action){
-  console.log("action:::",action)
   switch(action.type){
     case "boardOnScreen":
-      console.log(action.value,"::::::SS")
        return {...sudoku,
         emptyCounts:action.value,
         inChoosingMode:false,
@@ -32,8 +30,8 @@ export function reducer(sudoku,action){
     case"getBoardToSudoku":
         return{...sudoku,
         board:action.board}
+
         default:
-            console.log(54565)
            return sudoku
   }
    

@@ -1,12 +1,12 @@
 
 import './App.css';
-import InputField from './Components/InputField/InputField';
+import ShiritoriGame from './Components/ShiritoriGame/ShiritoriGame';
 
 
 function App() {
   return (
     <div className="App">
-     <InputField />
+     <ShiritoriGame />
     </div>
   );
 }

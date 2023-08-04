@@ -7,7 +7,6 @@ export default function ShiritoriGame() {
   const [message, setMessage] = useState('');
   const shiritori = new Shiritori();
   const [words, setWords] = useState([]);
-  const [inputWord, setInputWord] = useState('');
 
   const handleRestart = () => {
     shiritori.restart();
@@ -19,24 +18,19 @@ export default function ShiritoriGame() {
     const result = shiritori.play(inputWord);
 
     if (Array.isArray(result)) {
-      setWords(result);
+      setWords([...words, ...result]);
       setMessage('');
     } else {
-      setMessage(result);
+      setMessage(result[0]);
     }
   };
 
   return (
     <div>
       <h1>ShiritoriGame</h1>
-      {!shiritori.gameOver && <button onClick={handleRestart}>Restart</button>}
-      <InputField onPlay={handlePlay} setWord={shiritori.setWord} />
-      {shiritori.gameOver ? (
-        <WordList words={words} />
-      ) : (
-        <p>{message}</p>
-      )}
+      <button onClick={handleRestart}>Restart</button>
+      <InputField onPlay={handlePlay} />
+      {shiritori.gameOver ? <WordList words={words} /> : <p>{message}</p>}
     </div>
   );
 }
-

@@ -1,6 +1,6 @@
 import React from 'react'
-import Mode from './Mode'
 import styles from './ChooseMode.module.css'
+import Mode from './Components/Mode'
 
 export default function ChooseMode({boardOnScreen}) {
   return (

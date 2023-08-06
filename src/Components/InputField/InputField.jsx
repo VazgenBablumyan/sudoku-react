@@ -1,26 +1,24 @@
-import React from 'react'
-import { useState } from 'react';
+import React from "react";
 
-export default function InputField({ onPlay} ) {
-    const[inputWord, setInputWord] = useState('');
-
-    const handleInputChange = (event) => {
-      setInputWord(event.target.value);
-    };
-
-
-
-    const handlePlay = () => {
-      onPlay(inputWord);
-      setInputWord('');
-    }
-    
-
+const InputField = ({ currentWord, handleInputChange, handleWordSubmit, gameOver, getLastLetter }) => {
   return (
     <div>
-       <input type="text" value={inputWord} onChange={handleInputChange} />
-        <button onClick={handlePlay}>Play</button>
+      <p>
+        Your word should start with "{getLastLetter()}"
+      </p>
+      <input
+        type="text"
+        value={currentWord}
+        onChange={handleInputChange}
+        disabled={gameOver}
+      />
+      <button onClick={handleWordSubmit} disabled={gameOver}>
+        Submit
+      </button>
     </div>
-  )
-}
+  );
+};
+
+export default InputField;
+
 

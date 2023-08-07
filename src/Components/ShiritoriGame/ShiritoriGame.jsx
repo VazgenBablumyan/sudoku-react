@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import InputField from "../InputField/InputField";
 import WordList from "../WordList/WordList";
-import Shiritori from "../Shiritori/Shiritori";
 import armenianCities from "../../datas/armenianCities";
+import styles from './ShiritoriGame.module.css'
 
 const getLastLetter = (words, startingLetter) => {
   if (words.length > 0) {
@@ -16,12 +16,13 @@ const ShiritoriGame = () => {
   const [currentWord, setCurrentWord] = useState("");
   const [gameOver, setGameOver] = useState(false);
   const [startingLetter, setStartingLetter] = useState("");
-  const [scores, setScores] = useState({ player1: 0 }); // Initialize scores
+  const [scores, setScores] = useState({ player1: 0 });
   const [errorMessage, setErrorMessage] = useState("");
+  const [gameEnded, setGameEnded] = useState(false);
 
   useEffect(() => {
     const alphabet =
-      "աբգդեզէըթժիլխծկհձղճմյնշոչպջռսվտցուփքևօֆ";
+      "աբգդեթիլխծկհձղճմնշոչպջսվտցփքօֆ";
     const randomIndex = Math.floor(Math.random() * alphabet.length);
     setStartingLetter(alphabet[randomIndex]);
   }, []);
@@ -35,18 +36,28 @@ const ShiritoriGame = () => {
     if (!gameOver) {
       const trimmedCurrentWord = currentWord.trim();
       const firstLetter = trimmedCurrentWord.charAt(0);
+      const lastLetter = trimmedCurrentWord.charAt(trimmedCurrentWord.length - 1);
       const lowerCaseFirstLetter = firstLetter.toLowerCase();
       const lowerCaseStartingLetter = startingLetter.toLowerCase();
-      const lowerCaseLastWord = words.length > 0 ? words[words.length - 1].toLowerCase() : "";
-
-      if (words.includes(trimmedCurrentWord)) {
-        setErrorMessage("You already entered this word!");
-      } else if (words.length === 0 && lowerCaseFirstLetter !== lowerCaseStartingLetter) {
-        setErrorMessage(`Your word should start with "${startingLetter}"`);
-      } else if (lowerCaseLastWord && lowerCaseLastWord.charAt(lowerCaseLastWord.length - 1) !== lowerCaseFirstLetter) {
-        setErrorMessage("Word should start with the last letter of the previous word!");
-      } else if (!armenianCities.includes(trimmedCurrentWord)) {
+      const lowerCaseLastWord =
+        words.length > 0 ? words[words.length - 1].toLowerCase() : "";
+  
+      if (!armenianCities.includes(trimmedCurrentWord)) {
         setErrorMessage("Invalid word!");
+      } else if (words.includes(trimmedCurrentWord)) {
+        setErrorMessage("You already entered this word!");
+        setGameOver(true);
+      } else if (["զ", "է", "ը", "ժ", "յ", "ռ", "ու", "և", "ր"].includes(lastLetter)) {
+        setGameOver(true);
+      } else if (
+        words.length === 0 &&
+        lowerCaseFirstLetter !== lowerCaseStartingLetter ||
+        lowerCaseLastWord &&
+        lowerCaseLastWord.charAt(lowerCaseLastWord.length - 1) !== lowerCaseFirstLetter
+      ) {
+        setErrorMessage(
+          "Word should start with the last letter of the previous word!"
+        );
       } else {
         setWords((prevWords) => [...prevWords, trimmedCurrentWord]);
         setCurrentWord("");
@@ -54,10 +65,11 @@ const ShiritoriGame = () => {
           ...prevScores,
           player1: prevScores.player1 + 1,
         }));
-        setErrorMessage(""); 
+        setErrorMessage("");
       }
     }
   };
+  
 
   const restartGame = () => {
     setWords([]);
@@ -67,16 +79,24 @@ const ShiritoriGame = () => {
     setErrorMessage("");
   };
 
+  const handleGameEnd = () => {
+    setGameEnded(true);
+    setGameOver(true);
+  };
+
   return (
-    <div>
-      <Shiritori startingLetter={startingLetter} />
-      {gameOver ? (
-        <div>
+    <div className="container">
+      <h1>Shiritori Game</h1>
+       {gameOver ? (
+        <div className="restart-button-container">
           <p>
-            Game Over! You repeated a word, entered an invalid word, or couldn't find a
-            word.
+            {gameEnded
+              ? "Game Over! You ended the game by clicking 'I don't know'."
+              : "Game Over! You repeated a word, entered an invalid word, or your word ended with a specified letter, with which doesn't start any Armenian cities names."}
           </p>
-          <button onClick={restartGame}>Restart</button>
+          <button className="restart-button" onClick={restartGame}>
+            Restart
+          </button>
         </div>
       ) : (
         <div>
@@ -88,12 +108,13 @@ const ShiritoriGame = () => {
             gameOver={gameOver}
             getLastLetter={() => getLastLetter(words, startingLetter)}
           />
+          <button onClick={handleGameEnd} className="btn">I don't know</button>
         </div>
       )}
 
-      <div>
+      <div >
         <h2>Scores:</h2>
-        <p>Player 1: {scores.player1}</p>
+        <p>Player : {scores.player1}</p>
       </div>
 
       <WordList words={words} />

@@ -1,8 +1,13 @@
 import React from "react";
 
-const InputField = ({ currentWord, handleInputChange, handleWordSubmit, gameOver, getLastLetter }) => {
+const InputField = ({ currentWord, 
+  handleInputChange,
+   handleWordSubmit,
+   gameOver,
+   getLastLetter,
+ }) => {
   return (
-    <div>
+    <div  className="input-container">
       <p>
         Your word should start with "{getLastLetter()}"
       </p>
@@ -15,6 +20,8 @@ const InputField = ({ currentWord, handleInputChange, handleWordSubmit, gameOver
       <button onClick={handleWordSubmit} disabled={gameOver}>
         Submit
       </button>
+     
+    
     </div>
   );
 };

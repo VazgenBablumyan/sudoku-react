@@ -1,11 +1,11 @@
 import { configureStore } from "@reduxjs/toolkit";
-import sudokuSlice from "../Reducer/sudokuSlice";
+import { rootReducer } from "../Reducer/RootReducer";
 
 
   
 export const store = configureStore({
     reducer:{
-        sudoku:sudokuSlice
+        reducer:rootReducer
     }
 })
 

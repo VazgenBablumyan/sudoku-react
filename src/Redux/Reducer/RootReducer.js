@@ -1,7 +1,10 @@
 import { combineReducers } from '@reduxjs/toolkit'
-import React from 'react'
 import sudokuSlice from './sudokuSlice'
+import userSlice from './userSlice'
+import usersSlice from './usersSlice'
 
 export const rootReducer = combineReducers({
-    sudoku:sudokuSlice
+    sudoku:sudokuSlice,
+    user:userSlice,
+    users:usersSlice
 })

@@ -1,0 +1,31 @@
+.easy {
+    background-color: rgb(214, 214, 7);
+
+
+}
+
+.medium {
+    background-color: rgb(255, 153, 0);
+
+}
+
+.hard {
+    background-color: red;
+
+
+}
+
+.button {
+    color: aliceblue;
+    width: 200px;
+    height: 40px;
+    border: 2px solid black;
+    border-radius: 25px;
+    font-size: 30px;
+    transition: 0.2s;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
+
+button:hover {
+    transform: scale(1.2);
+}

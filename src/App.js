@@ -1,11 +1,12 @@
+import { RouterProvider } from 'react-router';
+import { appRouter } from './router/App.router';
 import './App.css';
-import MainPage from './Components/MainPage/MainPage';
 
 function App() {
   return (
-    <div className="App">
-      <MainPage />
-    </div>
+      <div className="App">
+        <RouterProvider router={appRouter} />
+        </div>
   );
 }
 

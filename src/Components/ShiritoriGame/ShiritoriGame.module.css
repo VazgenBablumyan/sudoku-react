@@ -1,0 +1,112 @@
+
+body {
+  font-family: "Arial", sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+p {
+  margin: 10px 0;
+}
+
+.input-container {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.input-container p {
+  margin: 0;
+  font-weight: bold;
+}
+
+.input-container input {
+  flex: 1;
+  height: 40px;
+  padding: 8px;
+  font-size: 16px;
+  border: 2px solid #ccc;
+  border-radius: 5px;
+  margin-left: 10px;
+}
+
+.input-container button {
+  height: 40px;
+  padding: 0 20px;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  background-color: #007bff;
+  color: #fff;
+  cursor: pointer;
+  margin-left: 10px;
+}
+
+.input-container button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+.error-message {
+  color: red;
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+
+.word-list {
+  margin-bottom: 20px;
+}
+
+.word-list h2 {
+  margin-bottom: 10px;
+}
+
+.word-list ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.word-list li {
+  margin-bottom: 5px;
+  font-size: 16px;
+}
+
+.restart-button-container {
+  text-align: center;
+}
+
+.restart-button  {
+  padding: 10px 20px;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  background-color: #007bff;
+  color: #fff;
+  cursor: pointer;
+}
+
+.restart-button:hover {
+  background-color: #0056b3;
+}
+
+
+.btn {
+  padding: 10px 20px;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  background-color: #007bff;
+  color: #fff;
+  cursor: pointer;
+}

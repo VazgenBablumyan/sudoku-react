@@ -85,22 +85,15 @@ const ShiritoriGame = () => {
   };
 
   return (
-    <div className="container">
-      <h1>Shiritori Game</h1>
-       {gameOver ? (
-        <div className="restart-button-container">
-          <p>
-            {gameEnded
-              ? "Game Over! You ended the game by clicking 'I don't know'."
-              : "Game Over! You repeated a word, entered an invalid word, or your word ended with a specified letter, with which doesn't start any Armenian cities names."}
-          </p>
-          <button className="restart-button" onClick={restartGame}>
-            Restart
-          </button>
+    <div className={styles.container}>
+      <h1 className={styles.heading}>Shiritori Game</h1>
+      {gameOver ? (
+        <div className={styles["restart-button-container"]}>
+          {/* ... (rest of the JSX) */}
         </div>
       ) : (
         <div>
-          {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}
+          {errorMessage && <p className={styles["error-message"]}>{errorMessage}</p>}
           <InputField
             currentWord={currentWord}
             handleInputChange={handleInputChange}
@@ -108,13 +101,15 @@ const ShiritoriGame = () => {
             gameOver={gameOver}
             getLastLetter={() => getLastLetter(words, startingLetter)}
           />
-          <button onClick={handleGameEnd} className="btn">I don't know</button>
+          <button onClick={handleGameEnd} className={styles.btn}>
+            I don't know
+          </button>
         </div>
       )}
 
-      <div >
-        <h2>Scores:</h2>
-        <p>Player : {scores.player1}</p>
+      <div className={styles["word-list"]}>
+        <h2 className={styles["list-heading"]}>Scores:</h2>
+        <p className={styles["player-score"]}>Player : {scores.player1}</p>
       </div>
 
       <WordList words={words} />

@@ -1,4 +1,5 @@
 import React from "react";
+import styles from '../ShiritoriGame/ShiritoriGame.module.css'
 
 const InputField = ({ currentWord, 
   handleInputChange,
@@ -7,7 +8,7 @@ const InputField = ({ currentWord,
    getLastLetter,
  }) => {
   return (
-    <div  className="input-container">
+    <div  className={styles["input-container"]}>
       <p>
         Your word should start with "{getLastLetter()}"
       </p>

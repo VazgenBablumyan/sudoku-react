@@ -1,35 +1,35 @@
-import React, { useEffect } from 'react'
+import React, { useEffect } from "react"
 import styles from './Sudoku.module.css'
 import ChooseMode from './Components/ChooseMode/ChooseMode'
-import StartNewGame from './Components/StartNewGame/StartNewGame'
+import StartNewGame from './Components/StartNewGame/StartNewGame';
 import RenderSudoku from './Components/StartNewGame/Components/RenderSudoku'
-import { useDispatch } from 'react-redux'
-import { isLoaded, sudoku } from '../../../../Redux/Reducer/sudokuSlice'
+import { closeSudoku } from '../../../../Redux/Reducer/sudokuSlice'
+import { useDispatch, useSelector } from 'react-redux';
+import { setStorage } from "../../../../helpers/helpers";
 
-const setStorage = (sudoku) => localStorage.setItem("Sudoku",JSON.stringify(sudoku))
 
 export default function Sudoku() {
   const dispatch = useDispatch()
+  const sudoku = useSelector((state) => state.sudoku);
+
   useEffect(() => {
-    setStorage(sudoku)
-  },[sudoku])
- 
-    
-  
+    setStorage("sudoku", sudoku);
+  }, [sudoku]);
+
+  console.log(sudoku)
   return (
     <div className={styles.sudoku}>
-      
-        <button onClick={dispatch(isLoaded())} className={styles.closeSudoku}>X</button>
-        {
-        sudoku.isLoaded && !sudoku.boardOnScreen && <StartNewGame  /> 
-        }
-        {
-        sudoku.inChoosingMode && !sudoku.isLoaded && <ChooseMode  />
-        }
-        {
-          sudoku.boardOnScreen && <RenderSudoku  />
-        }
-  
+      <button className={styles.closeSudoku}
+        onClick={() => dispatch(closeSudoku({ value: false }))}>X</button>
+      {
+        sudoku.startNewGame  && <StartNewGame />
+      }
+      {
+        sudoku.inChoosingMode && <ChooseMode />
+      }
+      {
+        sudoku.boardOnScreen && <RenderSudoku />
+      }
     </div>
   )
 }

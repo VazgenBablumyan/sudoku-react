@@ -5,7 +5,7 @@ import sudokuSlice from "../Reducer/sudokuSlice";
   
 export const store = configureStore({
     reducer:{
-        reducer:sudokuSlice
+        sudoku:sudokuSlice
     }
 })
 

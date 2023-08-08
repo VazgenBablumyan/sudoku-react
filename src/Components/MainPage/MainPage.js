@@ -8,7 +8,6 @@ export default function MainPage() {
     <div id ="main"className={styles.main}>
         <Header />
         <Container />
-
     </div>
   )
 }

@@ -1,12 +1,16 @@
+
 .sudoku{
+    background-color: aqua;
+    margin-top: -300px;
+    position:absolute;
     margin: auto;
-    margin-top: 50px;
     width:700px;
     height: 600px;
-
+    z-index: 2;
 }
 .closeSudoku{
     position: relative;
+    right: 50px;
     float: right;
     width: 50px;
     height: 50px;

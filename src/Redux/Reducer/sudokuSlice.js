@@ -1,58 +1,88 @@
 import { createSlice } from "@reduxjs/toolkit"
+import { getStorage } from "../../helpers/helpers"
 
 
-const setStorage = (sudoku) => localStorage.setItem("Sudoku",JSON.stringify(sudoku))
-const getStorage = (key) => JSON.parse(localStorage.getItem(key))
-
-export const sudoku = getStorage("sudoku") ?? {isLoaded:true,emptyCounts:0}
-
+const sudoku = getStorage("sudoku") ?? {startNewGame:true,emptyCounts:1}
 
 export const sudokuSlice = createSlice({
-  
+
   name:"sudoku",
   initialState: sudoku,
   reducers: {
-    boardOnScreen: (action) => { 
-        return {...sudoku,
-      emptyCounts:action.value,
-      inChoosingMode:false,
-      boardOnScreen:true,
-      isLoaded:true,
-      continueOldGame:false}},
-    inChoosingMode: () => {
-      return {...sudoku,
+    startSudoku(state, action){
+       return {
+          ...state,
+          sudokuGame:action.payload.value
+      }
+    },
+    closeSudoku(state,action){
+      if(state.inChoosingMode){
+        return {
+          ...state,
+          sudokuGame:action.payload.value,
+          inChoosingMode:action.payload.value,
+          boardOnScreen:action.payload.value,
+          startNewGame:true,
+          continueOldGame:false
+        }
+      }
+      return{
+        ...state,
+        sudokuGame:action.payload.value,
+        inChoosingMode:action.payload.value,
+        boardOnScreen:action.payload.value,
+        startNewGame:true
+      }
+    },
+    startNewGame(state){
+      return {...state,
+        inChoosingMode:false,
+        boardOnScreen:false,
+        startNewGame:true,
+        continueOldGame:false}
+    },
+    inChoosingMode(state,action){
+      console.log(state);
+        return {...state ,
         board:[],
         inChoosingMode:true,
         boardOnScreen:false,
-        isLoaded:false,
-        continueOldGame:false}
+        startNewGame:false,
+        }
     },
-    isLoaded:() => {
-      return {...sudoku,
-        inChoosingMode:false,
-        boardOnScreen:false,
-        isLoaded:true,
-        continueOldGame:false}
+    boardOnScreen(state,action){ 
+      return {...state,
+      emptyCounts:action.payload.value,
+      inChoosingMode:false,
+      boardOnScreen:true,
+      continueOldGame:true,
+      startNewGame:false}
     },
-    continueOldGame:() => {
-      return{...sudoku,
+    continueOldGame(state){
+      return{...state,
         inChoosingMode:false,
         boardOnScreen:true,
-        isLoaded:true,
-        continueOldGame:true
       }  
     },
-    getBoardToSudoku:(action) => {
-      return{...sudoku,
-        board:action.board}
+    getBoardToSudoku(state, action){
+      return{...state,
+        board:action.payload.value}
     },
-    getTrueNumbers:(action) => {
-      return {...sudoku,
-        trueNumbers:action.nnumbers}
+    getTrueNumbers(state, action){
+      return {...state,
+        trueNumbers:action.payload.numbers}
     }
   }
 })
-export const  { boardOnScreen, inChoosingMode, isLoaded, continueOldGame, getBoardToSudoku, getTrueNumbers } = sudokuSlice.actions
+export const  { boardOnScreen, 
+  inChoosingMode, 
+  startNewGame, 
+  continueOldGame, 
+  getBoardToSudoku, 
+  getTrueNumbers, 
+  startSudoku,
+  closeSudoku } = sudokuSlice.actions
+
 
 export default sudokuSlice.reducer
 

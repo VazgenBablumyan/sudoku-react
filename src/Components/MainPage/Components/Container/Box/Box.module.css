@@ -4,11 +4,12 @@
     transition: 1s;
 }
 .box{
+    margin-top: 100px;
     height: 500px;
 }
 .button{
     margin:30px 50px;
-    width: 150px;
+    width: 200px;
     height: 50px;
     font-size: 25px;
     background-color: yellow;

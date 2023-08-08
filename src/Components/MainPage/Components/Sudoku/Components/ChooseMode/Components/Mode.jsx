@@ -1,14 +1,17 @@
-import React, { useRef } from 'react'
+import React from 'react'
 import styles from "./Mode.module.css"
+import { boardOnScreen } from '../../../../../../../Redux/Reducer/sudokuSlice'
+import { useDispatch } from 'react-redux'
 
 
 
-export default function Mode({boardOnScreen,text,clas}) {
+export default function Mode({text,clas}) {
+  const dispatch=useDispatch()
 let style = styles[clas] 
 
 return (
     <div>
-          <button onClick={boardOnScreen} className={style+" "+styles.button}> {text} </button>
+          <button onClick={() => dispatch(boardOnScreen({value:15}))} className={style+" "+styles.button}> {text} </button>
     </div>
   )
 }

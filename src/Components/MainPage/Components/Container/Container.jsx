@@ -7,8 +7,9 @@ import { useDispatch, useSelector } from 'react-redux'
 
 
 export default function Container() {
+
   const dispatch = useDispatch();
-  const sudoku = useSelector((state) => state.sudoku);
+  const {sudoku} = useSelector((state) => state.reducer);
   return (
     <div className={styles.container}>
       <Box

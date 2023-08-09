@@ -9,12 +9,12 @@ import { useDispatch, useSelector } from 'react-redux'
 
 
 export default function RenderSudoku() {
-  const sudoku = useSelector((state) => state.sudoku);
-  const dispatch=useDispatch()
+  const {sudoku} = useSelector((state) => state.reducer);
+  const dispatch = useDispatch()
 
   const board = sudoku.board.length>2 ? sudoku.board:MakeSudoku(15)
-console.log(board)
-  // useEffect(() => dispatch(getBoardToSudoku({value:board})),[])
+  console.log(board)
+  // dispatch(getBoardToSudoku({value:board}))
   
   return (
     <div  className={styles.board}>

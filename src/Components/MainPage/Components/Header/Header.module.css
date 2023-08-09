@@ -1,13 +1,9 @@
 .header{
-    padding-top: 20px;
-    width: 100%;
+    padding-top: 10px;
+    width: 100wh;
     position: relative;
 }
-.record{
-    margin-left: 20px;
-    font-size: 20px;
 
-}
 .login{
     margin-right: 20px;
     position: absolute;

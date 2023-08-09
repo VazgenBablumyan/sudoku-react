@@ -41,8 +41,7 @@ export const sudokuSlice = createSlice({
         startNewGame:true,
         continueOldGame:false}
     },
-    inChoosingMode(state,action){
-      console.log(state);
+    inChoosingMode(state){
         return {...state ,
         board:[],
         inChoosingMode:true,

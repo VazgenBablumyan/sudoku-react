@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { boardOnScreen, inChoosingMode } from '../../../../../../Redux/Reducer/sudokuSlice'
 
 export default function StartNewGame() {
-  const sudoku = useSelector((state) => state.sudoku);
+  const {sudoku} = useSelector((state) => state.reducer);
   const dispatch = useDispatch()
   return (
     <div className={styles.box}>

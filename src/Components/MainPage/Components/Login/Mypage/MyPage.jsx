@@ -1,18 +1,13 @@
 import React from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import styles from './Mypage.module.css'
-import { quitPage } from '../../../../../Redux/Reducer/userSlice'
+import Header from './Components/Header/Header'
+import styles from './MainPage.module.css'
+import Container from './Components/Container/Container'
 
-export default function MyPage() {
-  const dispatch=useDispatch()
-    const {user}=useSelector((state) => state.reducer)
+export default function MainPage() {
   return (
-    <div className={styles.mypage}>
-        <b className={styles.username}>{user.username}</b>
-        <button className={styles.button}>Records</button>
-        <button className={styles.button} onClick={() => dispatch(quitPage())}>Quit</button>
-
+    <div id ="main"className={styles.main}>
+        <Header />
+        <Container />
     </div>
   )
 }
- 

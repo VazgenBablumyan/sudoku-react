@@ -9,7 +9,6 @@ import MyPage from '../Login/Mypage/MyPage'
 export default function Header() {
   const dispatch = useDispatch()
   const login = useSelector((state) => state.reducer.user)
-  console.log(login)
   return (
     <div className={styles.header}>
       {login.log ? <MyPage /> : <button className={styles.login} onClick={() => dispatch(togleLogin())}>LogIn/SignUp</button>}

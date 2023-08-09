@@ -4,26 +4,30 @@ import { Button, TextField } from '@mui/material'
 import { useDispatch, useSelector } from 'react-redux'
 import { addUser } from '../../../../../Redux/Reducer/usersSlice'
 import { logPage } from '../../../../../Redux/Reducer/userSlice'
+import { setStorage } from '../../../../../helpers/helpers'
 
 export default function Register() {
   const dispatch = useDispatch()
+  const { users } = useSelector((state) => state.reducer)
+
   const [username, setUsername] = useState("")
   const [password, setPassword] = useState("")
   const [rePassword, setRePassword] = useState("")
-  const { users } = useSelector((state) => state.reducer)
 
   const handleClick = () => {
     const validName = users.find((user) => user.name === username)
-    if (!validName) {
+    if (!validName && (password === rePassword)) {
       dispatch(addUser({ name: username, password: password }))
       dispatch(logPage({ name: username }))
+      setStorage(users,"users")
+      console.log(users)
     }
   }
   return (
     <div className={styles.register}>
       <TextField id="standard-basic"
         className={styles.inputs}
-        required="true"
+        required="true" 
         label="Name"
         autoComplete='on'
         variant="standard"

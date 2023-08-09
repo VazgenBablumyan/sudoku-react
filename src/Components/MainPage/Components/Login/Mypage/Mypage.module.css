@@ -5,7 +5,8 @@
     display: inline;
     width:55px;
     height:59px;
-    border-radius:5px
+    border-radius:5px;
+    z-index: 3;
 }
 .button{
     background-color: rgba(230, 255, 68, 0.304);

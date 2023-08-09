@@ -12,7 +12,6 @@ export default function Header() {
   console.log(login)
   return (
     <div className={styles.header}>
-      <span className={styles.record}>sadas</span>
       {login.log?<MyPage />:<button className={styles.login} onClick={() => dispatch(togleLogin())}>LogIn/SignUp</button>}
       { login.togleLogin && <Login /> }
       { login.togleRegist && <Register />}

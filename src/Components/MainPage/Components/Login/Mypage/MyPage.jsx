@@ -10,8 +10,9 @@ export default function MyPage() {
     <div className={styles.mypage}>
         <b className={styles.username}>{user.username}</b>
         <button className={styles.button}>Records</button>
-        <button className={styles.button} onClick={()=> console.log(145263)}>Quit</button>
+        <button className={styles.button} onClick={() => dispatch(quitPage())}>Quit</button>
 
     </div>
   )
 }
+ 

@@ -9,18 +9,18 @@ import { useDispatch, useSelector } from 'react-redux'
 
 
 export default function RenderSudoku() {
-  const {sudoku} = useSelector((state) => state.reducer);
+  const { sudoku } = useSelector((state) => state.reducer);
   const dispatch = useDispatch()
 
-  const board = sudoku.board.length>2 ? sudoku.board:MakeSudoku(15)
+  const board = sudoku.board.length > 2 ? sudoku.board : MakeSudoku(15)
   console.log(board)
   // dispatch(getBoardToSudoku({value:board}))
-  
+
   return (
-    <div  className={styles.board}>
-        { 
-            board.map((row,i) => <Rows key={ uuid4() } i={ i } row={ row } />)
-        }
+    <div className={styles.board}>
+      {
+        board.map((row, i) => <Rows key={uuid4()} i={i} row={row} />)
+      }
     </div>
   )
 }

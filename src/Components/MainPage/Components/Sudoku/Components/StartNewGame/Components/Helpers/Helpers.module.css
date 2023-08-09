@@ -1,28 +1,31 @@
-.rows{
+.rows {
     width: 570px;
     display: flex;
     justify-content: space-between;
 }
-.default{
+
+.default {
     display: inline;
     width: 45px;
     height: 45px;
-    background:rgb(247, 237, 35);
+    background: rgb(247, 237, 35);
     font-size: 50px;
     padding-left: 15px;
     padding-bottom: 7px;
     border: 2px solid black;
-    border-radius:20px;
+    border-radius: 20px;
 }
-.manual{ display: inline;
+
+.manual {
+    display: inline;
     padding-top: 5px;
     width: 45px;
     height: 45px;
-    background:rgb(247, 255, 2);
+    background: rgb(247, 255, 2);
     font-size: 50px;
     padding-left: 15px;
     padding-bottom: 7px;
     border: 2px solid black;
-    border-radius:20px;
+    border-radius: 20px;
 
 }

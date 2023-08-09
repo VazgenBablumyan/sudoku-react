@@ -10,14 +10,15 @@ import { setStorage } from "../../../../helpers/helpers";
 
 export default function Sudoku() {
   const dispatch = useDispatch()
-  const {sudoku} = useSelector((state) => state.reducer);
+  const { sudoku } = useSelector((state) => state.reducer);
 
-  useEffect(() => {
-    setStorage("sudoku", sudoku);
-  }, [sudoku]);
+  // useEffect(() => {
+  //   setStorage("sudoku", sudoku);
+  // }, [sudoku]);
 
   return (
     <div className={styles.sudoku}>
+      <span className={styles.text}>SuDoKu</span>
       <button className={styles.closeSudoku}
         onClick={() => dispatch(closeSudoku({ value: false }))}>X</button>
       {

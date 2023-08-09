@@ -1,16 +1,25 @@
 
 .sudoku{
-    background-color: aqua;
-    margin-top: -300px;
+    background-color: rgb(255, 255, 255);
+    top:30px;
     position:absolute;
     margin: auto;
-    width:700px;
-    height: 600px;
+    width:570px;
+    height: 592px;
     z-index: 2;
+    border-radius: 25px;
+    border:6px blue solid
+}
+.text{
+    position: absolute;
+    font-family: 'Cherry Bomb One', cursive;
+    width:580px;
+    font-size:35px;
+    text-align: center;
 }
 .closeSudoku{
     position: relative;
-    right: 50px;
+    right: 0px;
     float: right;
     width: 50px;
     height: 50px;

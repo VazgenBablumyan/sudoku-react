@@ -5,13 +5,15 @@ import { useDispatch } from 'react-redux'
 
 
 
-export default function Mode({text,clas}) {
-  const dispatch=useDispatch()
-let style = styles[clas] 
+export default function Mode({ text, clas }) {
+  const dispatch = useDispatch()
+  let style = styles[clas]
 
-return (
+  return (
     <div>
-          <button onClick={() => dispatch(boardOnScreen({value:15}))} className={style+" "+styles.button}> {text} </button>
+      <button onClick={() => dispatch(boardOnScreen({ value: 15 }))} 
+      className={style + " " + styles.button}
+      > {text} </button>
     </div>
   )
 }

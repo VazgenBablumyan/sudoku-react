@@ -3,6 +3,17 @@ import InputField from "../InputField/InputField";
 import WordList from "../WordList/WordList";
 import armenianCities from "../../datas/armenianCities";
 import styles from './ShiritoriGame.module.css'
+import { useSelector, useDispatch } from "react-redux";
+import {
+  updateCurrentWord,
+  setErrorMessage,
+  setStartingLetter,
+  addWord,
+  setGameOver,
+  setCurrentWord,
+  setScores,
+  setGameEnded,
+} from "../gameActions";
 
 const getLastLetter = (words, startingLetter) => {
   if (words.length > 0) {
@@ -12,24 +23,26 @@ const getLastLetter = (words, startingLetter) => {
 };
 
 const ShiritoriGame = () => {
-  const [words, setWords] = useState([]);
-  const [currentWord, setCurrentWord] = useState("");
-  const [gameOver, setGameOver] = useState(false);
-  const [startingLetter, setStartingLetter] = useState("");
-  const [scores, setScores] = useState({ player1: 0 });
-  const [errorMessage, setErrorMessage] = useState("");
-  const [gameEnded, setGameEnded] = useState(false);
+  // const [words, setWords] = useState([]);
+  // const [currentWord, setCurrentWord] = useState("");
+  // const [gameOver, setGameOver] = useState(false);
+  // const [startingLetter, setStartingLetter] = useState("");
+  // const [scores, setScores] = useState({ player1: 0 });
+  // const [errorMessage, setErrorMessage] = useState("");
+  // const [gameEnded, setGameEnded] = useState(false);
+  const { currentWord, gameOver } = useSelector((state) => state.game);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const alphabet =
       "աբգդեթիլխծկհձղճմնշոչպջսվտցփքօֆ";
     const randomIndex = Math.floor(Math.random() * alphabet.length);
-    setStartingLetter(alphabet[randomIndex]);
+    dispatch(setStartingLetter(alphabet[randomIndex]))
   }, []);
 
   const handleInputChange = (event) => {
-    setCurrentWord(event.target.value);
-    setErrorMessage("");
+    dispatch(updateCurrentWord(event.target.value));
+    dispatch(setErrorMessage(""));
   };
 
   const handleWordSubmit = () => {
@@ -38,50 +51,50 @@ const ShiritoriGame = () => {
       const firstLetter = trimmedCurrentWord.charAt(0);
       const lastLetter = trimmedCurrentWord.charAt(trimmedCurrentWord.length - 1);
       const lowerCaseFirstLetter = firstLetter.toLowerCase();
-      const lowerCaseStartingLetter = startingLetter.toLowerCase();
+      const lowerCaseStartingLetter = state.game.startingLetter.toLowerCase();
       const lowerCaseLastWord =
-        words.length > 0 ? words[words.length - 1].toLowerCase() : "";
+      state.game.words.length > 0 ? state.game.words[state.game.words.length - 1].toLowerCase() : "";
   
       if (!armenianCities.includes(trimmedCurrentWord)) {
-        setErrorMessage("Invalid word!");
-      } else if (words.includes(trimmedCurrentWord)) {
-        setErrorMessage("You already entered this word!");
-        setGameOver(true);
+        dispatch(setErrorMessage("Invalid word!"))
+      } else if (state.game.words.includes(trimmedCurrentWord)) {
+        dispatch(setErrorMessage("You already entered this word!"))
+        dispatch(setGameOver());
       } else if (["զ", "է", "ը", "ժ", "յ", "ռ", "ու", "և", "ր"].includes(lastLetter)) {
-        setGameOver(true);
+       dispatch(setGameOver());
       } else if (
-        words.length === 0 &&
+        state.game.words.length === 0 &&
         lowerCaseFirstLetter !== lowerCaseStartingLetter ||
         lowerCaseLastWord &&
         lowerCaseLastWord.charAt(lowerCaseLastWord.length - 1) !== lowerCaseFirstLetter
       ) {
-        setErrorMessage(
+        dispatch(setErrorMessage(
           "Word should start with the last letter of the previous word!"
-        );
+        ))
       } else {
-        setWords((prevWords) => [...prevWords, trimmedCurrentWord]);
-        setCurrentWord("");
-        setScores((prevScores) => ({
+        dispatch(addWord((prevWords) => [...prevWords, trimmedCurrentWord]))
+        dispatch(setCurrentWord(""))
+        dispatch(setScores((prevScores) => ({
           ...prevScores,
           player1: prevScores.player1 + 1,
-        }));
-        setErrorMessage("");
+        })))
+        dispatch(setErrorMessage(""))
       }
     }
   };
   
 
   const restartGame = () => {
-    setWords([]);
-    setCurrentWord("");
-    setGameOver(false);
-    setScores({ player1: 0 }); 
-    setErrorMessage("");
+    dispatch(addWord([]))
+    dispatch(setCurrentWord(""))
+    dispatch(setGameOver(false))
+    dispatch(setScores({ player1: 0 }))
+    dispatch(setErrorMessage(""))
   };
 
   const handleGameEnd = () => {
-    setGameEnded(true);
-    setGameOver(true);
+    dispatch(setGameEnded(true))
+    dispatch(setGameOver(true))
   };
 
   return (
@@ -89,11 +102,21 @@ const ShiritoriGame = () => {
       <h1 className={styles.heading}>Shiritori Game</h1>
       {gameOver ? (
         <div className={styles["restart-button-container"]}>
-          {/* ... (rest of the JSX) */}
+           <p>
+            Game Over! You repeated a word, entered an invalid word, or couldn't find a
+            word.
+            {gameEnded
+              ? "Game Over! You ended the game by clicking 'I don't know'."
+              : "Game Over! You repeated a word, entered an invalid word, or your word ended with a specified letter, with which doesn't start any Armenian cities names."}
+          </p>
+          <button onClick={restartGame}>Restart</button>
+          <button className="restart-button" onClick={restartGame}>
+            Restart
+          </button>
         </div>
       ) : (
         <div>
-          {errorMessage && <p className={styles["error-message"]}>{errorMessage}</p>}
+          {state.game.errorMessage && <p className={styles["error-message"]}>{errorMessage}</p>}
           <InputField
             currentWord={currentWord}
             handleInputChange={handleInputChange}

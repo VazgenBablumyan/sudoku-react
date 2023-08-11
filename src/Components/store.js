@@ -1,7 +1,10 @@
-import { createStore, combineReducers } from "redux";
-import gameReducer from "./gameReducer";
-const rootReducer = combineReducers({
-  game: gameReducer,
+import { configureStore } from '@reduxjs/toolkit';
+import shiritoriReducer from './ShiritoriSlice';
+
+const store = configureStore({
+  reducer: {
+    shiritori: shiritoriReducer,
+  },
 });
-const store = createStore(rootReducer);
+
 export default store;

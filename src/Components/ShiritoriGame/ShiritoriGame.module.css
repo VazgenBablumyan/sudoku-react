@@ -65,10 +65,12 @@ p {
 
 .word-list {
   margin-bottom: 20px;
+  list-style: none;
 }
 
 .word-list h2 {
   margin-bottom: 10px;
+
 }
 
 .word-list ul {
@@ -80,6 +82,7 @@ p {
 .word-list li {
   margin-bottom: 5px;
   font-size: 16px;
+  list-style: none;
 }
 
 .restart-button-container {

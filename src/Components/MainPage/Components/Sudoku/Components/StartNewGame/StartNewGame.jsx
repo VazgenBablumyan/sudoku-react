@@ -3,6 +3,7 @@ import styles from "./StartNewGame.module.css"
 import RenderSudoku from './Components/RenderSudoku'
 import { useDispatch, useSelector } from 'react-redux'
 import { boardOnScreen, inChoosingMode } from '../../../../../../Redux/Reducer/sudokuSlice'
+import { removeStorage } from '../../../../../../helpers/helpers'
 
 export default function StartNewGame() {
   const { sudoku } = useSelector((state) => state.reducer);
@@ -15,6 +16,7 @@ export default function StartNewGame() {
         Start New Game
       </button>
       {sudoku.continueOldGame && <button onClick={() => {
+        removeStorage("board")
         dispatch(boardOnScreen(15))
         return <RenderSudoku />
       }}

@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react'
+import React, { useState } from 'react'
 import styles from '../Helpers.module.css'
 
 export default function Box({ value, i, idx, calculateFalseCounter }) {
@@ -15,18 +15,18 @@ export default function Box({ value, i, idx, calculateFalseCounter }) {
     //       return true
     //     } else {
     // console.log(4564)    }
-
   }
   if (value) {
     return <input
       type="text"
       value={value}
       className={styles.manual}
+      readOnly
     />
   }
   return <input
     type="text"
-    value={(number === 0) ? "" : number}
+    defaultValue={(number === 0) ? "" : number}
     onChange={(e) => {
       setNumber(e.target.value)
       handleChange(e)

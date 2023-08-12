@@ -16,8 +16,7 @@ export default function Login() {
   const handleClickShowPassword = () => setShowPassword((show) => !show)
   const handleClick = () => {
     const validName = users.find((user) => {
-      console.log("user.name", user.name === username)
-      console.log("user.pass", user.password === password)
+
       return user.name === username && user.password == password
     })
     if (validName) {
@@ -29,7 +28,7 @@ export default function Login() {
       <TextField id="standard-basic"
         className={styles.inputs}
         required="true"
-        label="name"
+        label="Name"
         autoComplete='on'
         variant="standard"
         value={username}

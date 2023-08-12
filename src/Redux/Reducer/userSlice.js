@@ -7,7 +7,6 @@ export const userSlice = createSlice({
     initialState: user,
     reducers: {
         togleLogin(state) {
-            console.log(5445);
             return {
                 ...state,
                 togleLogin: !state.togleLogin,

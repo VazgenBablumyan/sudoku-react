@@ -19,15 +19,14 @@ export default function Register() {
     if (!validName && (password === rePassword)) {
       dispatch(addUser({ name: username, password: password }))
       dispatch(logPage({ name: username }))
-      setStorage(users,"users")
-      console.log(users)
+      setStorage("users", users)
     }
   }
   return (
     <div className={styles.register}>
       <TextField id="standard-basic"
         className={styles.inputs}
-        required="true" 
+        required="true"
         label="Name"
         autoComplete='on'
         variant="standard"

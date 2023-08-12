@@ -19,7 +19,7 @@ export const sudokuSlice = createSlice({
                     ...state,
                     sudokuGame: action.payload.value,
                     inChoosingMode: action.payload.value,
-                    boardOnScreen: action.payload.value,
+                    boardOnScreen: false,
                     startNewGame: true,
                     continueOldGame: false,
                 };
@@ -28,7 +28,7 @@ export const sudokuSlice = createSlice({
                 ...state,
                 sudokuGame: action.payload.value,
                 inChoosingMode: action.payload.value,
-                boardOnScreen: action.payload.value,
+                boardOnScreen: false,
                 startNewGame: true,
             };
         },
@@ -44,7 +44,6 @@ export const sudokuSlice = createSlice({
         inChoosingMode(state) {
             return {
                 ...state,
-                board: [],
                 inChoosingMode: true,
                 boardOnScreen: false,
                 startNewGame: false,
@@ -63,9 +62,7 @@ export const sudokuSlice = createSlice({
         continueOldGame(state) {
             return { ...state, inChoosingMode: false, boardOnScreen: true };
         },
-        getBoardToSudoku(state, action) {
-            return { ...state, board: action.payload.value };
-        },
+
         getTrueNumbers(state, action) {
             return { ...state, trueNumbers: action.payload.numbers };
         },
@@ -76,7 +73,7 @@ export const {
     inChoosingMode,
     startNewGame,
     continueOldGame,
-    getBoardToSudoku,
+    sendBoardToSudoku,
     getTrueNumbers,
     startSudoku,
     closeSudoku,

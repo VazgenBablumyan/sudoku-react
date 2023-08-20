@@ -8,7 +8,6 @@ import MainPage from './Components/MainPage/MainPage';
 function App() {
   const { sudoku } = useSelector((state) => state.reducer)
   useEffect(() => setStorage("sudoku", sudoku),[sudoku])
-console.log(12)
   return (
       <div className="App">
         <MainPage />

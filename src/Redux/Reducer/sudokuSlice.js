@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { getStorage } from '../../helpers/helpers';
+import { getStorage, removeStorage } from '../../helpers/helpers';
 
-const sudoku = getStorage('sudoku') ?? { startNewGame: true, emptyCounts: 1 };
+const sudoku = getStorage('sudoku') ?? { startNewGame: true, emptyCounts: 0, falses: 0 };
 
 export const sudokuSlice = createSlice({
     name: 'sudoku',
@@ -50,6 +50,7 @@ export const sudokuSlice = createSlice({
             };
         },
         boardOnScreen(state, action) {
+            removeStorage("sudokuBoard")
             return {
                 ...state,
                 emptyCounts: action.payload.value,
@@ -60,9 +61,18 @@ export const sudokuSlice = createSlice({
             };
         },
         continueOldGame(state) {
-            return { ...state, inChoosingMode: false, boardOnScreen: true };
+            return { ...state, 
+                inChoosingMode: false, 
+                boardOnScreen: true,
+                startNewGame: false,
+             };
         },
-
+        falseNumber(state){
+            return{
+                ...state,
+                falses:state.falses++
+            }
+        },
         getTrueNumbers(state, action) {
             return { ...state, trueNumbers: action.payload.numbers };
         },
@@ -77,6 +87,8 @@ export const {
     getTrueNumbers,
     startSudoku,
     closeSudoku,
+    falseNumber
+
 } = sudokuSlice.actions;
 
 export default sudokuSlice.reducer;

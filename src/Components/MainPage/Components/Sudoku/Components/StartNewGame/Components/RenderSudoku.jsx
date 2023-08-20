@@ -1,29 +1,27 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { MakeSudoku } from '../../../Services/MakeSudoku'
 import styles from "./RenderSudoku.module.css"
 import Rows from './Helpers/Rows'
 import uuid4 from 'uuid4'
 import { useDispatch, useSelector } from 'react-redux'
 import { boardToBord } from '../../../../../../../Redux/Reducer/boardSlice'
-import { setStorage } from '../../../../../../../helpers/helpers'
+import { getStorage, setStorage } from '../../../../../../../helpers/helpers'
 
 
 
 export default function RenderSudoku() {
-  const { sudoku, board } = useSelector((state) => state.reducer);
+  const { sudoku } = useSelector((state) => state.reducer);
   const dispatch = useDispatch()
-  console.log(board)
-  console.log(board.sudokuBoard)
-  const sudokuBoard = board.sudokuBoard.length > 2 ? board.sudokuBoard : MakeSudoku(sudoku.emptyCounts)
-  // dispatch(boardToBord({ value: sudokuBoard }))
-  console.log(sudokuBoard)
+  const board = getStorage("sudokuBoard")
+  const sudokuBoard = board ?? MakeSudoku(sudoku.emptyCounts)
+  // useEffect(dispatch(boardToBord({value:sudokuBoard})))
 
 
-  setStorage("board", board)
+  setStorage("sudokuBoard", sudokuBoard )
   return (
     <div className={styles.board}>
       {
-        sudokuBoard.map((row, i) => <Rows key={uuid4()} i={i} row={row} />)
+        sudokuBoard.map((row, idx) => <Rows key={uuid4()} rowId={idx} row={row} />)
       }
     </div>
   )

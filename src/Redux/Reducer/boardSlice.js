@@ -2,7 +2,6 @@ import { createSlice } from '@reduxjs/toolkit';
 import { getStorage } from '../../helpers/helpers';
 
 const board = getStorage('board') ?? { sudokuBoard: [], hiddenNumbers: [] };
-console.log(board);
 export const boardSlice = createSlice({
     name: 'board',
     initialState: board,
@@ -17,7 +16,7 @@ export const boardSlice = createSlice({
         getHiddenNumbers(state, action) {
             return {
                 ...state,
-                hiddenNumbers: action.payload.value,
+                hiddenNumbers: [...action.payload.value]    
             };
         },
     },

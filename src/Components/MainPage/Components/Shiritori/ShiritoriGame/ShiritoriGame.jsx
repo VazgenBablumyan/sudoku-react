@@ -4,9 +4,7 @@ import WordList from "../InputField/WordList/WordList";
 import armenianCities from "../datas/armenianCities";
 import styles from './ShiritoriGame.module.css'
 import { useDispatch, useSelector } from 'react-redux';
-import { setCurrentWord, setErrorMessage, setGameEnded, setGameOver, setScores, setStartingLetter, setWords } from "../../../../../Redux/Reducer/shiritoriSlice;
-
-
+import { setCurrentWord, closeShiritori, setErrorMessage, setGameEnded, setGameOver, setScores, setStartingLetter, setWords } from "../../../../../Redux/Reducer/shiritoriSlice";
 const getLastLetter = (words, startingLetter) => {
   if (words.length > 0) {
     return words[words.length - 1].charAt(words[words.length - 1].length - 1);
@@ -15,21 +13,20 @@ const getLastLetter = (words, startingLetter) => {
 };
 const ShiritoriGame = () => {
   const dispatch = useDispatch();
-  const { words, currentWord, gameOver, startingLetter, scores, errorMessage, gameEnded } = useSelector((state) => state.reducer.shiritori)
-
-
+  const { words, currentWord, gameOver, startingLetter, scores, errorMessage, gameEnded} = useSelector((state) => state.reducer.shiritori)
   useEffect(() => {
     const alphabet =
       'աբգդեթիլխծկհձղճմնշոչպջսվտցփքօֆ';
     const randomIndex = Math.floor(Math.random() * alphabet.length);
     dispatch(setStartingLetter(alphabet[randomIndex]));
   }, []);
-
   const handleInputChange = (event) => {
     dispatch(setCurrentWord(event.target.value));
     dispatch(setErrorMessage(''));
   };
-
+  const handleClose = () => {
+    dispatch(closeShiritori({value: false}));
+  }
   const handleWordSubmit = () => {
     if (!gameOver) {
       const trimmedCurrentWord = currentWord.trim();
@@ -38,7 +35,6 @@ const ShiritoriGame = () => {
       const lowerCaseFirstLetter = firstLetter.toLowerCase();
       const lowerCaseStartingLetter = startingLetter.toLowerCase();
       const lowerCaseLastWord = words.length > 0 ? words[words.length - 1].toLowerCase() : '';
-
       if (!armenianCities.includes(trimmedCurrentWord)) {
         dispatch(setErrorMessage('Invalid word!'));
       } else if (words.includes(trimmedCurrentWord)) {
@@ -80,13 +76,10 @@ const ShiritoriGame = () => {
     dispatch(setScores({ player: 0 }));
     dispatch(setErrorMessage(''));
   };
-
   const handleGameEnd = () => {
     dispatch(setGameEnded(true));
     dispatch(setGameOver(true));
   };
-
-
   return (
     <div className={styles.container}>
       <h1 className={styles.heading}>Shiritori Game</h1>
@@ -115,14 +108,15 @@ const ShiritoriGame = () => {
           </button>
         </div>
       )}
-
       <div className={styles["word-list"]}>
         <h2 className={styles["list-heading"]}>Scores:</h2>
         <p className={styles["player-score"]}>Player : {scores.player}</p>
       </div>
       <WordList words={words} />
+      <button className={styles.closeButton} onClick={() =>handleClose()}>
+      X
+    </button>
     </div>
   );
 };
-
 export default ShiritoriGame;

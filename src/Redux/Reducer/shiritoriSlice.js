@@ -54,6 +54,7 @@ export const {
   setErrorMessage,
   setGameEnded,
   startShiritori,
+  closeShiritori
 } = shiritoriSlice.actions;
 
 export default shiritoriSlice.reducer;

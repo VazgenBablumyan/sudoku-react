@@ -1,32 +1,43 @@
 import React, { useState } from 'react'
 import styles from '../Helpers.module.css'
+import { useDispatch, useSelector } from 'react-redux'
+import { getStorage, setStorage } from '../../../../../../../../../helpers/helpers'
+import { falseNumber } from '../../../../../../../../../Redux/Reducer/sudokuSlice'
+import EndGame from '../../../../EndGame/EndGame'
 
-export default function Box({ value, i, idx, calculateFalseCounter }) {
+export default function Box({ value, rowId, boxIdx, calculateFalseCounter }) {
+  const dispatch = useDispatch()
+  const { sudoku } = useSelector((state) => state.reducer)
+  const [ number, setNumber ] = useState(value)
+  const hiddenNumbers = getStorage("hiddenNumbers")
+  const sudokuBoard = getStorage("sudokuBoard")
 
-  const [number, setNumber] = useState(value)
-
-  const hiddenNumbers = localStorage.getItem("hiddenNumbers")
   const handleChange = (e) => {
-    if (e.target.value.length === 1) {
-
-
-    }
-    //     if(e.target.value==hiddenNumbers[i][idx]){
-    //       return true
-    //     } else {
-    // console.log(4564)    }
-  }
+    const value = Number(e.target.value)
+    if(value){
+    if (value.length === 1) {
+      console.log(value)
+        if(value==hiddenNumbers[rowId][boxIdx]){
+          sudokuBoard[rowId][boxIdx]=value*1 
+          setStorage("sudokuBoard", sudokuBoard )
+        } else {
+              sudoku.falses ===3 && dispatch(falseNumber())
+        }
+        } else if(value.length>1){
+          setNumber(value[value.length-1])
+        }   
+    }}
   if (value) {
     return <input
       type="text"
-      value={value}
+      defaultValue={value}
       className={styles.manual}
       readOnly
     />
   }
   return <input
     type="text"
-    defaultValue={(number === 0) ? "" : number}
+    value={(number === 0) ? "" : number}
     onChange={(e) => {
       setNumber(e.target.value)
       handleChange(e)

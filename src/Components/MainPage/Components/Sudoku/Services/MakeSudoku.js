@@ -17,14 +17,13 @@ export const MakeSudoku = function (emptynums) {
         let row = board[i];
 
         for (let idx = 0; counter < countOfEmptyItems; idx++) {
-            hiddenNumbers[i][idx] = row[idx];   
+            hiddenNumbers[i][idx] = row[idx]==0? hiddenNumbers[i][idx]:row[idx];   
             if (
                 Math.random() > 0.85 &&
                 Math.random() < 0.88 &&
                 row[idx] !== 0
             ) {
-                console.log(board)
-                console.log(hiddenNumbers[i][idx])
+
                 row[idx] = 0;
                 counter++;
             }
